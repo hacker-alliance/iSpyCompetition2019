@@ -1,0 +1,38 @@
+﻿body {
+  padding: 4em;
+  font: 14px Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+code {
+  font: 14px Consolas, "Courier New", monospace;
+  background-color: #ddd;
+  padding: 2px;
+  border-radius: 5px;
+}
+
+.divTable{
+	display: table;
+	width: 80%;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableCell, .divTableHead {
+	border: 1px solid #999999;
+	display: table-cell;
+  	padding: 3px;
+  	vertical-align: top;
+  	width: 200px;
+  	max-width: 200px;
+}
+.divTableBody {
+	display: table-row-group;
+}

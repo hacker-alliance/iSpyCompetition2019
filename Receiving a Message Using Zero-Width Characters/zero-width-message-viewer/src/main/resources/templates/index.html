@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Zero Width Message Decoder</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" th:href="@{~/css/site.css}">
+
+    <!-- Ensure the viewer works best across various browsers and devices -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1 user-scalable=no"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- CSS required by the viewer -->
+    <link rel="stylesheet" th:href="@{~/viewer-assets/css/normalize.min.css}">
+    <link rel="stylesheet" th:href="@{~/viewer-assets/css/viewer.css}">
+
+    <!-- JS required by the viewer -->
+    <script th:src="@{~/viewer-assets/js/jquery-1.10.2.min.js}"></script>
+    <script th:src="@{~/viewer-assets/js/jquery.hotkeys.min.js}"></script>
+    <script th:src="@{~/viewer-assets/js/underscore.min.js}"></script>
+    <script th:src="@{~/viewer-assets/js/viewercontrol.js}"></script>
+    <script th:src="@{~/viewer-assets/js/viewer.js}"></script>
+    <script th:src="@{~/viewer-assets/js/viewerCustomizations.js}"></script>
+
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        $(document).ready(function () {
+            $("#decodeContainer").load(/*[['decode?viewingSessionId=' + ${viewingSessionId}]]*/);
+        });
+    /*]]>*/
+    </script>
+    
+    <!-- Create the viewer inside of the "viewingContainer" div, and initialize it with the viewingSessionId  -->
+    <script th:inline="javascript">
+    /*<![CDATA[*/
+        $(function() {
+            $('#viewerContainer').pccViewer({
+                documentID:       /*[[${viewingSessionId}]]*/,
+                imageHandlerUrl:  /*[[@{~/pas-proxy}]]*/,         // Base path the viewer should use to make requests to PAS (PrizmDoc Application Services).
+                viewerAssetsPath: /*[[@{~/viewer-assets}]]*/,     // Base path the viewer should use for static assets
+                resourcePath:     /*[[@{~/viewer-assets/img}]]*/, // Base path the viewer should use for images
+                language: viewerCustomizations.languages['en-US'],
+                template: viewerCustomizations.template,
+                icons:    viewerCustomizations.icons,
+                annotationsMode: "LayeredAnnotations"  // Use the new "LayeredAnnotations" system, which will persist annotation data as JSON (instead of the default "LegacyAnnotations" system, which uses a different XML format)
+            });
+        });
+    /*]]>*/
+    </script>
+</head>
+<body>
+    <h1>Zero Width Message Decoder</h1>
+
+    <div class="divTable">
+        <div class="divTableBody">
+            <div class="divTableRow">
+                <div class="divTableHead"><h2>Original document</h2></div>
+                <div class="divTableHead"><h2>Decoded message</h2></div>
+            </div>
+            <div class="divTableRow">
+                <div class="divTableCell">
+                    <!-- This div will become the viewer -->
+                    <div id="viewerContainer" style="width: auto"></div>
+                </div>
+                <div class="divTableCell" id="decodeContainer"><p>Decoding...</p></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
